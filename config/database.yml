@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: <%= ENV.fetch('RAILS_DB_HOST') { 'localhost' } %>
+  port: 5432
+  username: <%= ENV['RAILS_DB_USERNAME'] %>
+  password: <%= ENV['RAILS_DB_PASSWORD'] %>
+  pool: <%= ENV.fetch('RAILS_DB_POOL_SIZE') { 5 } %>
+
+development:
+  <<: *default
+  database: admin_test_dev
+
+test:
+  <<: *default
+  database: admin_test_test
+
+production:
+  <<: *default
+  database: admin_test_prod

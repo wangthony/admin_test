@@ -1,0 +1,14 @@
+#!/bin/bash
+
+: ${RAILS_ENV?"RAILS_ENV must be set"}
+set -e
+set -v
+cd /var/app/current
+git stash
+sudo systemctl stop puma
+git pull
+bundle install
+yarn install --check-files
+rails db:migrate
+rails assets:precompile
+sudo systemctl start puma
